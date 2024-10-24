@@ -1,4 +1,4 @@
-import config from "../config/index";
+import config from "../config/index.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"].split(" ")[0];
