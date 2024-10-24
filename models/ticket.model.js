@@ -7,6 +7,11 @@ const ticketSchema = new Schema(
       ref: "User",
       required: true,
     },
+    ticketId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     description: {
       type: String,
       required: true,

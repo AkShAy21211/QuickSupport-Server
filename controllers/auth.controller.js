@@ -17,11 +17,6 @@ export const login = async (req, res) => {
 
     if (user) {
       const token = generateToken({ _id: user._id });
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        maxAge: 3600000,
-      });
 
       res
         .status(200)
@@ -29,16 +24,12 @@ export const login = async (req, res) => {
 
       return;
     }
+
     // If User does not exist then create new user and create token and return it
 
     const newUser = await saveUserToDb(email);
     const token = generateToken({ _id: newUser._id });
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 3600000,
-      sameSite: "Strict", // Prevent CSRF
-    });
+
     if (newUser) {
       res
         .status(200)
