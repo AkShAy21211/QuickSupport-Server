@@ -3,7 +3,6 @@ import congif from "./index.js";
 
 const connectToDb = async () => {
   try {
-    console.log(congif);
 
     await mongoose.connect(congif.mongouri);
     console.log("Connected to the database");

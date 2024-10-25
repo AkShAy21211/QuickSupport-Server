@@ -3,9 +3,6 @@ import config from "../config/index.js";
 
 export const verifyToken = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-
-
-  console.log('Gained token',token);
   
 
   if (!token) {

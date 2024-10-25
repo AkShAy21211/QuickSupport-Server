@@ -24,3 +24,12 @@ export const seedIssue = async (issue) => {
     console.error("Error creating new ticket:", error);
   }
 };
+
+export const fetchAllIssues = async () => {
+  try {
+    const issue = await IssueModel.find({}, { issue: 1}).lean();
+    return issue;
+  } catch (error) {
+    console.error("Error creating new ticket:", error);
+  }
+};
