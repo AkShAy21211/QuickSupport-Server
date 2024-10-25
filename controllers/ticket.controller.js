@@ -1,5 +1,6 @@
-import { createNewTicket } from "../services/ticket.services.js";
+import { createNewTicket, seedIssue } from "../services/ticket.services.js";
 import generateTickerId from "../utils/idGenerator.js";
+import IssueModel from "../models/issue.model.js";
 
 export const createTicket = async (req, res) => {
   try {
@@ -28,8 +29,37 @@ export const createTicket = async (req, res) => {
     }
 
     res
-      .status(500)
+      .status(400)
       .json({ message: "An error occurred while creating the ticket" });
+    return;
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An unexpected error occurred" });
+    return;
+  }
+};
+
+export const seedIssueCategory = async (req, res) => {
+  try {
+    const { categories } = req.body;
+
+    if (!categories) {
+      return res
+       .status(400)
+       .json({ message: "Issue categories are required" });
+    }
+
+    const issue = await seedIssue(categories);
+    if (issue) {
+      res.status(201).json({ message: "Issue categories seeded successfully" });
+      return;
+    }
+
+    res
+      .status(400)
+      .json({
+        message: "An error occurred while seeding the issue categories",
+      });
     return;
   } catch (error) {
     console.error(error);
